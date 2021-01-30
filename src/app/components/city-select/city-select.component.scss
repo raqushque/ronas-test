@@ -1,0 +1,29 @@
+@import "src/app/styles/variables.scss";
+
+.city-select-container {
+    background-color: #FFFFFF;
+    display: inline-block;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    .city-select-input {
+        flex-flow: row;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        app-city-input-field {
+            flex: 1 1 80%;
+            max-width: 80%;
+            display: flex;
+        }
+        .city-select-ok {
+            flex: 1 1 40px;
+            max-width: 40px;
+            display: flex;
+            font-size: 22px;
+        }
+    }
+    app-countdown {
+        position: relative;
+        top: -5px
+    }
+}

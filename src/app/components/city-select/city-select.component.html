@@ -1,0 +1,15 @@
+<div class="city-select-container">
+    <div [formGroup]="form" class="city-select-input">
+        <app-city-input-field formControlName="city"></app-city-input-field>
+        <span class="city-select-ok">OK</span>
+    </div>
+    <app-countdown #countdown></app-countdown>
+    <div class="city-select-list">
+        <div *ngFor="let city of citiesList">
+            <span>{{city.country}} {{city.name}}</span>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,15 @@
+@import "src/app/styles/variables.scss";
+
+.city-input {
+    background-color: #FFFFFF;
+    height: 45px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    font-size: 22px;
+    padding: 0 12px;
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
