@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BehaviorSubject, Subscription} from 'rxjs';
 
 @Component({
@@ -6,7 +6,7 @@ import {BehaviorSubject, Subscription} from 'rxjs';
     templateUrl: './countdown.component.html',
     styleUrls: ['./countdown.component.scss']
 })
-export class CountdownComponent implements OnInit {
+export class CountdownComponent implements OnInit, OnDestroy {
     private resetListener = new BehaviorSubject(false);
     private sub: Subscription;
     showCountdown: boolean = false;
@@ -27,6 +27,10 @@ export class CountdownComponent implements OnInit {
                 }), 0);
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
     }
 
 }

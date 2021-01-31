@@ -1,3 +1,4 @@
 <div class="app-wrapper">
-    <app-city-select></app-city-select>
+    <app-city-select (cityData)="citySelected($event)" [cityName]="defaultCityName"></app-city-select>
+    <app-temp-units-select (units)="unitsSelected($event)"></app-temp-units-select>
 </div>

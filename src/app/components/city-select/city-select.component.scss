@@ -1,6 +1,30 @@
 @import "src/app/styles/variables.scss";
 
+.city-settings {
+    position: relative;
+}
+.city-display-container {
+    .city-display-name {
+        color: $app-text-color-bright;
+        font-size: 36px;
+        display: block;
+    }
+    .city-display-change {
+        color: $app-text-color-bright;
+        font-size: 14px;
+        cursor: pointer;
+    }
+}
+.city-select-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.2);
+}
 .city-select-container {
+    position: absolute;
     background-color: #FFFFFF;
     display: inline-block;
     border-radius: 8px;
@@ -10,9 +34,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 300px;
         app-city-input-field {
-            flex: 1 1 80%;
-            max-width: 80%;
+            flex: 1 1 auto;
+            max-width: 100%;
             display: flex;
         }
         .city-select-ok {
@@ -20,10 +45,24 @@
             max-width: 40px;
             display: flex;
             font-size: 22px;
+            cursor: pointer;
+            color: $app-main-color;
         }
     }
     app-countdown {
         position: relative;
         top: -5px
+    }
+    .city-select-list {
+        .city-list-item {
+            padding: 4px 8px;
+            border-top: 1px solid $app-divider-color;
+            font-size: 12px;
+            color: $app-secondary-color;
+            cursor: pointer;
+            &:hover {
+                background-color: $app-accent-background;
+            }
+        }
     }
 }

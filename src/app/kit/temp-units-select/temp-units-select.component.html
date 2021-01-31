@@ -1,0 +1,13 @@
+<div class="units-select-container">
+    <span class="degrees-symbol">&#9702;</span>
+    <div class="units-select-radiogroup">
+        <label class="units-input-label">
+            <input class="units-input" type="radio" name="units" value="metric" [checked]="defaultUnit === 'metric'" (change)="radioChanged($event)">
+            <span class="units-input-checkmark metric">C</span>
+        </label>
+        <label class="units-input-label">
+            <input class="units-input"  type="radio" name="units" value="imperial" [checked]="defaultUnit === 'imperial'" (change)="radioChanged($event)">
+            <span class="units-input-checkmark imperial">F</span>
+        </label>
+    </div>
+</div>

@@ -1,15 +1,28 @@
-<div class="city-select-container">
-    <div [formGroup]="form" class="city-select-input">
-        <app-city-input-field formControlName="city"></app-city-input-field>
-        <span class="city-select-ok">OK</span>
+<div class="city-settings">
+    <div class="city-display-container" *ngIf="display; else selectionMode">
+        <span class="city-display-name">{{cityName}}</span>
+        <span class="city-display-change" (click)="display = false">Сменить город</span>
     </div>
-    <app-countdown #countdown></app-countdown>
-    <div class="city-select-list">
-        <div *ngFor="let city of citiesList">
-            <span>{{city.country}} {{city.name}}</span>
+    <ng-template #selectionMode>
+        <div class="city-select-wrapper" (click)="display = true"></div>
+        <div class="city-select-container">
+            <div [formGroup]="form" class="city-select-input">
+                <app-city-input-field formControlName="city" (keyup.enter)="handleOKClick()"></app-city-input-field>
+                <span class="city-select-ok" (click)="handleOKClick()" *ngIf="cityNamePresent">OK</span>
+            </div>
+            <app-countdown #countdown></app-countdown>
+            <div class="city-select-list">
+                <span *ngIf="errors !== ''">{{errors}}</span>
+                <div *ngFor="let city of citiesList" class="city-list-item" (click)="selectCity(city)">
+                    <span>{{city.country}}, {{city.state ? city.state + ',' : ''}} {{city.name}}</span>
+                </div>
+            </div>
         </div>
-    </div>
+    </ng-template>
 </div>
+
+
+
 
 
 
