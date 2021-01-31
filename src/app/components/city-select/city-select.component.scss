@@ -31,7 +31,7 @@
                 height: 20px;
             }
             .geolocation-error {
-                color: #ff9d9d;
+                color: $app-error-color;
             }
         }
         &.hidden {
@@ -83,6 +83,10 @@
         top: -5px
     }
     .city-select-list {
+        .cities-not-found {
+            padding: 4px 8px;
+            color: $app-error-color;
+        }
         .city-list-item {
             padding: 4px 8px;
             border-top: 1px solid $app-divider-color;

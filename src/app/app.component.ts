@@ -42,7 +42,6 @@ export class AppComponent implements OnInit, OnDestroy{
             this.weatherData = null;
             if (location !== null) {
                 this.weatherService.requestWeather(location, units).subscribe(resp => {
-                    console.log(resp);
                     this.activeCityName = resp.name;
                     this.weatherData = resp;
                 });

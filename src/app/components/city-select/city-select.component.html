@@ -27,7 +27,7 @@
             </div>
             <app-countdown #countdown></app-countdown>
             <div class="city-select-list">
-                <span *ngIf="errors !== ''">{{errors}}</span>
+                <span class="cities-not-found" *ngIf="errors !== ''">{{errors}}</span>
                 <div *ngFor="let city of citiesList" class="city-list-item" (click)="selectCity(city)">
                     <span>{{city.country}}, {{city.state ? city.state + ',' : ''}} {{city.name}}</span>
                 </div>

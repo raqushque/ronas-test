@@ -15,11 +15,11 @@ export class CitySelectComponent implements OnInit, OnDestroy {
     @ViewChild('countdown') countdownComponent: CountdownComponent;
     @Output() cityData: EventEmitter<LocationData> = new EventEmitter<LocationData>();
     @Input() set cityName(val) {
-        console.warn('city is set', val);
-        this.form.controls['city'].setValue(val, { emitEvent: false });
-        this._cityName = val;
         if (val === '') {
-            this.display = false;
+            this._cityName = 'Город не выбран';
+        } else {
+            this.form.controls['city'].setValue(val, { emitEvent: false });
+            this._cityName = val;
         }
     }
     get cityName() {
@@ -27,7 +27,7 @@ export class CitySelectComponent implements OnInit, OnDestroy {
     }
     private _cityName: string;
     private cityInputTimeout: any;
-    errors: string;
+    errors: string = '';
     citiesList: LocationData[];
     form: FormGroup;
     display: boolean = true;
@@ -59,7 +59,7 @@ export class CitySelectComponent implements OnInit, OnDestroy {
         if (value !== '') {
             this.resetCountdown();
             this.cityInputTimeout = setTimeout((_ => {
-                //this.getCitiesList(value);
+                this.getCitiesList(value);
             }), 2000);
         } else {
             this.countdownComponent.disableCountdown();
@@ -79,17 +79,20 @@ export class CitySelectComponent implements OnInit, OnDestroy {
         this.isNowProcessing = true;
         this.errors = '';
         this.weatherService.geocode(cityName).subscribe((res: GeocodingResponse[]) => {
-            console.log(res);
-            this.citiesList = res.map(el => {
-                return {country: el.country, name: el.local_names.ru ?? el.local_names.feature_name,
-                    lat: el.lat, lon: el.lon, state: el.state};
-            });
-            this.citiesList = uniqWith(this.citiesList, (a: LocationData, b: LocationData) => {
-                return a.country === b.country && a.name === b.name && a.state === b.state;
-            });
-            console.log(this.citiesList);
+            if (res.length === 0) {
+                this.errors = 'Город не найден';
+            } else {
+                this.citiesList = res.map(el => {
+                    return {country: el.country, name: el.local_names.ru ?? el.local_names.feature_name,
+                        lat: el.lat, lon: el.lon, state: el.state};
+                });
+                this.citiesList = uniqWith(this.citiesList, (a: LocationData, b: LocationData) => {
+                    return a.country === b.country && a.name === b.name && a.state === b.state;
+                });
+            }
             this.isNowProcessing = false;
         }, error => {
+            console.error(error);
             this.errors = 'Город не найден';
             this.isNowProcessing = false;
         });
