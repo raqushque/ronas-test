@@ -7,8 +7,8 @@ export interface GeocodingResponse {
     state?: string;
 }
 export interface LocationData {
-    name: string;
-    country: string;
+    name?: string;
+    country?: string;
     lat: number;
     lon: number;
     state?: string;

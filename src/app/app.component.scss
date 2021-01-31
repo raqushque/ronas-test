@@ -93,21 +93,7 @@
             flex-flow: row wrap;
             justify-content: center;
             padding: 200px 0;
-            .processing-spinner {
-                display: block;
-                height: 120px;
-                width: 120px;
-                border: 8px solid $app-text-color-bright;
-                border-radius: 50%;
-                border-right: 8px solid transparent;
-                animation: rotation 1s infinite linear;
-            }
         }
     }
-}
-
-@keyframes rotation {
-    from { }
-    to { transform: rotate(360deg); }
 }
 

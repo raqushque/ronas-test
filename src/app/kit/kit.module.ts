@@ -4,16 +4,18 @@ import { CityInputFieldComponent } from './city-input-field/city-input-field.com
 import {FormsModule} from '@angular/forms';
 import { CountdownComponent } from './countdown/countdown.component';
 import { TempUnitsSelectComponent } from './temp-units-select/temp-units-select.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
 @NgModule({
-    declarations: [CityInputFieldComponent, CountdownComponent, TempUnitsSelectComponent],
-    exports: [
-        CityInputFieldComponent,
-        CountdownComponent,
-        TempUnitsSelectComponent
-    ],
+    declarations: [CityInputFieldComponent, CountdownComponent, TempUnitsSelectComponent, SpinnerComponent],
+  exports: [
+    CityInputFieldComponent,
+    CountdownComponent,
+    TempUnitsSelectComponent,
+    SpinnerComponent
+  ],
     imports: [
         CommonModule,
         FormsModule

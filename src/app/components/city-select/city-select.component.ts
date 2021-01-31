@@ -31,6 +31,9 @@ export class CitySelectComponent implements OnInit, OnDestroy {
     citiesList: LocationData[];
     form: FormGroup;
     display: boolean = true;
+    isNowProcessing: boolean = false;
+    geolocationProcessing: boolean = false;
+    geolocationError: boolean = false;
     constructor(private fb: FormBuilder,
                 private weatherService: OpenweathermapService) {
         this.form = fb.group({
@@ -73,6 +76,7 @@ export class CitySelectComponent implements OnInit, OnDestroy {
         this.citiesList = [];
     }
     getCitiesList(cityName: string) {
+        this.isNowProcessing = true;
         this.errors = '';
         this.weatherService.geocode(cityName).subscribe((res: GeocodingResponse[]) => {
             console.log(res);
@@ -84,8 +88,22 @@ export class CitySelectComponent implements OnInit, OnDestroy {
                 return a.country === b.country && a.name === b.name && a.state === b.state;
             });
             console.log(this.citiesList);
+            this.isNowProcessing = false;
         }, error => {
             this.errors = 'Город не найден';
+            this.isNowProcessing = false;
         });
+    }
+    geolocate() {
+        this.geolocationProcessing = true;
+        navigator.geolocation.getCurrentPosition(
+            (f) => {
+                this.cityData.emit({lat: f.coords.latitude, lon: f.coords.longitude});
+                this.geolocationError = false;
+                this.geolocationProcessing = false;
+            }, (err) => {
+                this.geolocationError = true;
+                this.geolocationProcessing = false;
+            });
     }
 }

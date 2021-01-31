@@ -9,13 +9,34 @@
         font-size: 36px;
         display: block;
     }
-    .city-display-change {
-        color: $app-text-color-bright;
-        font-size: 14px;
-        cursor: pointer;
-    }
-    &.hidden {
-        visibility: hidden;
+    .city-controls {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-flow: row;
+        .city-display-change {
+            color: $app-text-color-bright;
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 16px;
+        }
+        .city-display-geolocate {
+            color: $app-text-color-bright;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            img {
+                height: 20px;
+            }
+            .geolocation-error {
+                color: #ff9d9d;
+            }
+        }
+        &.hidden {
+            visibility: hidden;
+        }
     }
 }
 .city-select-wrapper {
@@ -51,6 +72,10 @@
             font-size: 22px;
             cursor: pointer;
             color: $app-main-color;
+        }
+        app-spinner {
+            display: flex;
+            margin: 0 12px;
         }
     }
     app-countdown {

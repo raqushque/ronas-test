@@ -1,14 +1,29 @@
 <div class="city-settings">
     <div class="city-display-container" [ngClass]="{'hidden': !display}">
         <span class="city-display-name">{{cityName}}</span>
-        <span class="city-display-change" (click)="display = false">Сменить город</span>
+        <div class="city-controls">
+            <span class="city-display-change" (click)="display = false">Сменить город</span>
+            <div class="city-display-geolocate" (click)="geolocate()">
+                <app-spinner [borderWidth]="'2px'" [size]="'16px'" *ngIf="geolocationProcessing"></app-spinner>
+                <ng-container *ngIf="!geolocationError; else error">
+                    <img src="./assets/location.svg">
+                    <span>Мое местоположение</span>
+                </ng-container>
+                <ng-template #error>
+                    <span class="geolocation-error">Ошибка геолокации. Повторить?</span>
+                </ng-template>
+
+            </div>
+        </div>
+
     </div>
     <ng-container *ngIf="!display">
         <div class="city-select-wrapper" (click)="display = true"></div>
         <div class="city-select-container">
             <div [formGroup]="form" class="city-select-input">
                 <app-city-input-field formControlName="city" (keyup.enter)="handleOKClick()"></app-city-input-field>
-                <span class="city-select-ok" (click)="handleOKClick()" *ngIf="cityNamePresent">OK</span>
+                <span class="city-select-ok" (click)="handleOKClick()" *ngIf="cityNamePresent && !isNowProcessing">OK</span>
+                <app-spinner [borderWidth]="'3px'" [size]="'24px'" [colorCode]="'#498CEC'" *ngIf="isNowProcessing"></app-spinner>
             </div>
             <app-countdown #countdown></app-countdown>
             <div class="city-select-list">
