@@ -1,9 +1,9 @@
 <div class="city-settings">
-    <div class="city-display-container" *ngIf="display; else selectionMode">
+    <div class="city-display-container" [ngClass]="{'hidden': !display}">
         <span class="city-display-name">{{cityName}}</span>
         <span class="city-display-change" (click)="display = false">Сменить город</span>
     </div>
-    <ng-template #selectionMode>
+    <ng-container *ngIf="!display">
         <div class="city-select-wrapper" (click)="display = true"></div>
         <div class="city-select-container">
             <div [formGroup]="form" class="city-select-input">
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-    </ng-template>
+    </ng-container>
 </div>
 
 

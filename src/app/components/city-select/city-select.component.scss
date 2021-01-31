@@ -14,6 +14,9 @@
         font-size: 14px;
         cursor: pointer;
     }
+    &.hidden {
+        visibility: hidden;
+    }
 }
 .city-select-wrapper {
     position: fixed;
@@ -25,6 +28,7 @@
 }
 .city-select-container {
     position: absolute;
+    top: 0;
     background-color: #FFFFFF;
     display: inline-block;
     border-radius: 8px;
@@ -62,6 +66,10 @@
             cursor: pointer;
             &:hover {
                 background-color: $app-accent-background;
+            }
+            &:last-child {
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
             }
         }
     }

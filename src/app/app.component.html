@@ -1,4 +1,43 @@
 <div class="app-wrapper">
-    <app-city-select (cityData)="citySelected($event)" [cityName]="defaultCityName"></app-city-select>
-    <app-temp-units-select (units)="unitsSelected($event)"></app-temp-units-select>
+    <div class="app-container">
+        <div class="app-controls">
+            <app-city-select (cityData)="citySelected($event)" [cityName]="activeCityName"></app-city-select>
+            <app-temp-units-select (units)="unitsSelected($event)"></app-temp-units-select>
+        </div>
+
+        <div class="weather-display-container" *ngIf="weatherData; else processingBlock">
+            <div class="main-info">
+                <div class="weather-state">
+                    <img class="weather-icon" src="{{interpretWeather(weatherData.weather[0].id)}}">
+                    <span class="temperature">{{floorTemperature(weatherData.main.temp)}}</span>
+                </div>
+                <div class="weather-description">
+                    <span class="description">{{weatherData.weather[0].description | titlecase}}</span>
+                </div>
+            </div>
+            <div class="additional-info">
+                <div class="additional-info-box wind">
+                    <span class="additional-info-title">Ветер</span>
+                    <span class="additional-info-value">{{weatherData.wind.speed}} {{(tempUnits$ | async) === 'metric' ? 'м/c' : 'миль/ч'}}, {{interpretWind(weatherData.wind.deg)}}</span>
+                </div>
+                <div class="additional-info-box pressure">
+                    <span class="additional-info-title">Давление</span>
+                    <span class="additional-info-value">{{interpretPressure(weatherData.main.pressure )}} мм рт. ст</span>
+                </div>
+                <div class="additional-info-box humidity">
+                    <span class="additional-info-title">Влажность</span>
+                    <span class="additional-info-value">{{weatherData.main.humidity}}%</span>
+                </div>
+                <div class="additional-info-box cloudiness">
+                    <span class="additional-info-title">Облачность</span>
+                    <span class="additional-info-value">{{weatherData.clouds.all}}%</span>
+                </div>
+            </div>
+        </div>
+        <ng-template #processingBlock>
+            <div class="weather-processing-container">
+                <div class="processing-spinner"></div>
+            </div>
+        </ng-template>
+    </div>
 </div>

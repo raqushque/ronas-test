@@ -43,6 +43,8 @@ export interface WeatherResponse {
     clouds: {
         all: number;
     };
+    rain: any;
+    show: any;
     dt: number;
     sys: any;
     timezone: number;

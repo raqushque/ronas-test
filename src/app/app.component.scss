@@ -1,11 +1,113 @@
 @import "/src/app/styles/variables.scss";
 
 .app-wrapper {
+    color: $app-text-color-bright;
     height: 100%;
     width: 100%;
-    background-color: $app_main-color;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
+    background-color: $app_main-color;
+    .app-container {
+        height: 80vh;
+        width: 900px;
+        .app-controls {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .weather-display-container {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+            align-items: center;
+            .main-info {
+                width: 100%;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                align-items: center;
+                padding: 150px 0;
+                .weather-state {
+                    width: 100%;
+                    display: flex;
+                    flex-flow: row wrap;
+                    justify-content: center;
+                    align-items: center;
+                    .temperature {
+                        line-height: 1;
+                        position: relative;
+                        font-size: 108px;
+                        display: block;
+                        &:after {
+                            content: '\00B0';
+                            position: absolute;
+                            top: 0;
+                        }
+                    }
+                    .weather-icon {
+                        height: 150px;
+                    }
+                }
+                .weather-description {
+                    width: 100%;
+                    display: flex;
+                    flex-flow: row wrap;
+                    justify-content: center;
+                    align-items: center;
+                    .description {
+                        font-size: 28px;
+                        display: block;
+                    }
+                }
+
+            }
+            .additional-info {
+                width: 100%;
+                flex-flow: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                display: flex;
+                .additional-info-box {
+                    .additional-info-title {
+                        font-weight: 100;
+                        font-size: 16px;
+                        display: block;
+                        margin-bottom: 8px;
+                    }
+                    .additional-info-value {
+                        font-size: 24px;
+                        display: block;
+                    }
+                }
+            }
+
+        }
+        .weather-processing-container {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            width: 100%;
+            flex-flow: row wrap;
+            justify-content: center;
+            padding: 200px 0;
+            .processing-spinner {
+                display: block;
+                height: 120px;
+                width: 120px;
+                border: 8px solid $app-text-color-bright;
+                border-radius: 50%;
+                border-right: 8px solid transparent;
+                animation: rotation 1s infinite linear;
+            }
+        }
+    }
 }
+
+@keyframes rotation {
+    from { }
+    to { transform: rotate(360deg); }
+}
+

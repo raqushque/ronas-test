@@ -15,6 +15,7 @@ export class CitySelectComponent implements OnInit, OnDestroy {
     @ViewChild('countdown') countdownComponent: CountdownComponent;
     @Output() cityData: EventEmitter<LocationData> = new EventEmitter<LocationData>();
     @Input() set cityName(val) {
+        console.warn('city is set', val);
         this.form.controls['city'].setValue(val, { emitEvent: false });
         this._cityName = val;
         if (val === '') {
@@ -68,6 +69,7 @@ export class CitySelectComponent implements OnInit, OnDestroy {
     }
     selectCity(city: LocationData) {
         this.cityData.emit(city);
+        this.display = true;
         this.citiesList = [];
     }
     getCitiesList(cityName: string) {
