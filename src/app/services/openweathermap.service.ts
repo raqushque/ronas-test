@@ -12,6 +12,7 @@ export class OpenweathermapService {
     private geocodingLimit: number = 10;
     private geocodingBaseURL: string = 'http://api.openweathermap.org/geo/1.0/direct?q=';
     private weatherBaseURL: string = 'http://api.openweathermap.org/data/2.5/weather?';
+
     constructor(private http: HttpClient) {
     }
     geocode(location: string): Observable<GeocodingResponse[]> {

@@ -1,10 +1,12 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CountdownComponent} from '../../kit/countdown/countdown.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {OpenweathermapService} from '@services/openweathermap.service';
 import {GeocodingResponse, LocationData} from '../../types/geocoding-response';
 import {uniqWith} from 'lodash';
+import {WeatherSettingsService} from '@services/weather-settings.service';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-city-select',
@@ -13,19 +15,9 @@ import {uniqWith} from 'lodash';
 })
 export class CitySelectComponent implements OnInit, OnDestroy {
     @ViewChild('countdown') countdownComponent: CountdownComponent;
-    @Output() cityData: EventEmitter<LocationData> = new EventEmitter<LocationData>();
-    @Input() set cityName(val) {
-        if (val === '') {
-            this._cityName = 'Город не выбран';
-        } else {
-            this.form.controls['city'].setValue(val, { emitEvent: false });
-            this._cityName = val;
-        }
+    get activeCityName$(): Observable<string> {
+        return this.weatherStorage.activeCityName$;
     }
-    get cityName() {
-        return this._cityName;
-    }
-    private _cityName: string;
     private cityInputTimeout: any;
     errors: string = '';
     citiesList: LocationData[];
@@ -35,7 +27,8 @@ export class CitySelectComponent implements OnInit, OnDestroy {
     geolocationProcessing: boolean = false;
     geolocationError: boolean = false;
     constructor(private fb: FormBuilder,
-                private weatherService: OpenweathermapService) {
+                private weatherService: OpenweathermapService,
+                private weatherStorage: WeatherSettingsService) {
         this.form = fb.group({
             city: ['']
         });
@@ -71,7 +64,7 @@ export class CitySelectComponent implements OnInit, OnDestroy {
         this.getCitiesList(this.form.controls['city'].value);
     }
     selectCity(city: LocationData) {
-        this.cityData.emit(city);
+        this.weatherStorage.setLocationData(city);
         this.display = true;
         this.citiesList = [];
     }
@@ -101,7 +94,7 @@ export class CitySelectComponent implements OnInit, OnDestroy {
         this.geolocationProcessing = true;
         navigator.geolocation.getCurrentPosition(
             (f) => {
-                this.cityData.emit({lat: f.coords.latitude, lon: f.coords.longitude});
+                this.weatherStorage.setLocationData({lat: f.coords.latitude, lon: f.coords.longitude});
                 this.geolocationError = false;
                 this.geolocationProcessing = false;
             }, (err) => {

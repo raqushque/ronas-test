@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {WeatherSettingsService} from '@services/weather-settings.service';
 
 @Component({
     selector: 'app-temp-units-select',
@@ -6,14 +7,13 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
     styleUrls: ['./temp-units-select.component.scss']
 })
 export class TempUnitsSelectComponent implements OnInit {
-    @Output() units: EventEmitter<string> = new EventEmitter<string>();
-    constructor() {
+    constructor(private weatherStorage: WeatherSettingsService) {
     }
     get defaultUnit() {
         return localStorage.getItem('ronastest-temp-units');
     }
     radioChanged(event) {
-        this.units.emit(event.target.value);
+        this.weatherStorage.setDisplayMode(event.target.value);
     }
     ngOnInit(): void {
     }

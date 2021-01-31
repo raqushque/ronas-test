@@ -1,11 +1,11 @@
 <div class="app-wrapper">
     <div class="app-container">
         <div class="app-controls">
-            <app-city-select (cityData)="citySelected($event)" [cityName]="activeCityName"></app-city-select>
-            <app-temp-units-select (units)="unitsSelected($event)"></app-temp-units-select>
+            <app-city-select></app-city-select>
+            <app-temp-units-select></app-temp-units-select>
         </div>
 
-        <div class="weather-display-container" *ngIf="weatherData; else processingBlock">
+        <div class="weather-display-container" *ngIf="weatherData$ | async as weatherData; else processingBlock">
             <div class="main-info">
                 <div class="weather-state">
                     <img class="weather-icon" src="{{interpretWeather(weatherData.weather[0].id)}}">
@@ -18,7 +18,7 @@
             <div class="additional-info">
                 <div class="additional-info-box wind">
                     <span class="additional-info-title">Ветер</span>
-                    <span class="additional-info-value">{{weatherData.wind.speed}} {{(tempUnits$ | async) === 'metric' ? 'м/c' : 'миль/ч'}}, {{interpretWind(weatherData.wind.deg)}}</span>
+                    <span class="additional-info-value">{{weatherData.wind.speed}} {{(displayMode$ | async) === 'metric' ? 'м/c' : 'миль/ч'}}, {{interpretWind(weatherData.wind.deg)}}</span>
                 </div>
                 <div class="additional-info-box pressure">
                     <span class="additional-info-title">Давление</span>

@@ -1,6 +1,6 @@
 <div class="city-settings">
     <div class="city-display-container" [ngClass]="{'hidden': !display}">
-        <span class="city-display-name">{{cityName}}</span>
+        <span class="city-display-name">{{activeCityName$ | async}}</span>
         <div class="city-controls">
             <span class="city-display-change" (click)="display = false">Сменить город</span>
             <div class="city-display-geolocate" (click)="geolocate()">
@@ -12,7 +12,6 @@
                 <ng-template #error>
                     <span class="geolocation-error">Ошибка геолокации. Повторить?</span>
                 </ng-template>
-
             </div>
         </div>
 
