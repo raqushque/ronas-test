@@ -35,11 +35,11 @@
                     display: flex;
                     flex-flow: row wrap;
                     justify-content: center;
-                    align-items: center;
+                    align-items: flex-end;
                     .temperature {
                         line-height: 1;
                         position: relative;
-                        font-size: 108px;
+                        font-size: 132px;
                         display: block;
                         &:after {
                             content: '\00B0';
@@ -58,7 +58,8 @@
                     justify-content: center;
                     align-items: center;
                     .description {
-                        font-size: 28px;
+                        font-weight: 100;
+                        font-size: 24px;
                         display: block;
                     }
                 }
@@ -78,7 +79,7 @@
                         margin-bottom: 8px;
                     }
                     .additional-info-value {
-                        font-size: 24px;
+                        font-size: 22px;
                         display: block;
                     }
                 }
